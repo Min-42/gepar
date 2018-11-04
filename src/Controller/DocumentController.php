@@ -17,8 +17,15 @@ class DocumentController extends AbstractController
      */
     public function index(Document $document = null)
     {
+        if (!$document) {
+            $document = new Document();
+        }
+
+        $formDocument = $this->createForm(DocumentType::class, $document);
+        
         return $this->render('document/index.html.twig', [
-            'controller_name' => 'DocumentController',
+            'formDocument' => $formDocument->createView(),
+            'document' => $document,
         ]);
     }
 
