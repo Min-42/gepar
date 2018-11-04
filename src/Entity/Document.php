@@ -46,6 +46,26 @@ class Document
      */
     private $createdBy;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modifiedAt;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $modifiedBy;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $deletedBy;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +139,54 @@ class Document
     public function setCreatedBy(string $createdBy): self
     {
         $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
+    {
+        $this->modifiedAt = $modifiedAt;
+
+        return $this;
+    }
+
+    public function getModifiedBy(): ?string
+    {
+        return $this->modifiedBy;
+    }
+
+    public function setModifiedBy(?string $modifiedBy): self
+    {
+        $this->modifiedBy = $modifiedBy;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getDeletedBy(): ?string
+    {
+        return $this->deletedBy;
+    }
+
+    public function setDeletedBy(?string $deletedBy): self
+    {
+        $this->deletedBy = $deletedBy;
 
         return $this;
     }

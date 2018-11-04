@@ -46,6 +46,13 @@
                 </div>
             </div>
 
+            {# Actions #}
+            {% if document.id == NULL %}
+                <button class="btn tbtn-primary">Créer le document</button>
+            {% else %}
+                <button class="btn tbtn-primary">Modifier le document</button>
+            {% endif %}
+    
             {{ form_end(formDocument) }}
         </div>
     </div>
