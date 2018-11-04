@@ -16,8 +16,6 @@ class DocumentType extends AbstractType
             ->add('fichier')
             ->add('extension')
             ->add('taille')
-            ->add('createdAt')
-            ->add('createdBy')
         ;
     }
 
