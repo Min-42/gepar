@@ -37,9 +37,9 @@ class Entreprise
     private $documents;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="text")
      */
-    private $contacts = [];
+    private $contacts;
 
     /**
      * @ORM\Column(type="string", length=4)

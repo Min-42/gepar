@@ -38,9 +38,9 @@ class Invitation
     private $dateReception;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="text")
      */
-    private $datesReunion = [];
+    private $datesReunion;
 
     /**
      * @ORM\Column(type="string", length=255)
