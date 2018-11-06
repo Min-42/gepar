@@ -66,6 +66,17 @@ class Document
      */
     private $deletedBy;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Entreprise", inversedBy="documents")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $entreprise;
+
+    /**
+     * @ORM\Column(type="string", length=16)
+     */
+    private $attachedTo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -187,6 +198,30 @@ class Document
     public function setDeletedBy(?string $deletedBy): self
     {
         $this->deletedBy = $deletedBy;
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?Entreprise
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(?Entreprise $entreprise): self
+    {
+        $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    public function getAttachedTo(): ?string
+    {
+        return $this->attachedTo;
+    }
+
+    public function setAttachedTo(string $attachedTo): self
+    {
+        $this->attachedTo = $attachedTo;
 
         return $this;
     }

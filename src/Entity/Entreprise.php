@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,11 +32,6 @@ class Entreprise
      * @ORM\Column(type="string", length=255)
      */
     private $groupe;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Document")
-     */
-    private $documents;
 
     /**
      * @ORM\Column(type="text")
@@ -91,6 +88,16 @@ class Entreprise
      */
     private $deletedBy;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="entreprise", orphanRemoval=true)
+     */
+    private $documents;
+
+    public function __construct()
+    {
+        $this->documents = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -128,18 +135,6 @@ class Entreprise
     public function setGroupe(string $groupe): self
     {
         $this->groupe = $groupe;
-
-        return $this;
-    }
-
-    public function getDocuments(): ?Document
-    {
-        return $this->documents;
-    }
-
-    public function setDocuments(?Document $documents): self
-    {
-        $this->documents = $documents;
 
         return $this;
     }
@@ -272,6 +267,37 @@ class Entreprise
     public function setDeletedBy(?string $deletedBy): self
     {
         $this->deletedBy = $deletedBy;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            // set the owning side to null (unless already changed)
+            if ($document->getEntreprise() === $this) {
+                $document->setEntreprise(null);
+            }
+        }
 
         return $this;
     }

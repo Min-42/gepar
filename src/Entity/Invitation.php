@@ -23,11 +23,6 @@ class Invitation
     private $entreprise;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Document")
-     */
-    private $documents;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $dateEnvoi;
@@ -105,18 +100,6 @@ class Invitation
     public function setEntreprise(Entreprise $entreprise): self
     {
         $this->entreprise = $entreprise;
-
-        return $this;
-    }
-
-    public function getDocuments(): ?Document
-    {
-        return $this->documents;
-    }
-
-    public function setDocuments(?Document $documents): self
-    {
-        $this->documents = $documents;
 
         return $this;
     }
