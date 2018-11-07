@@ -27,7 +27,7 @@ class Document
     private $fichier;
 
     /**
-     * @ORM\Column(type="string", length=8)
+     * @ORM\Column(type="string", length=16)
      */
     private $extension;
 
@@ -224,5 +224,10 @@ class Document
         $this->attachedTo = $attachedTo;
 
         return $this;
+    }
+
+    public function display(): ?string
+    {
+        return '<a href="'.$this->fichier.'" target="_blank">'.$this->type.'</a><br />';
     }
 }

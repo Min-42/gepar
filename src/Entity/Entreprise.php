@@ -34,7 +34,7 @@ class Entreprise
     private $groupe;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $contacts;
 
@@ -54,7 +54,7 @@ class Entreprise
     private $nbAdherents;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $notes;
 
@@ -139,7 +139,7 @@ class Entreprise
         return $this;
     }
 
-    public function getContacts(): ?array
+    public function getContacts(): ?string
     {
         return $this->contacts;
     }
