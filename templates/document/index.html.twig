@@ -6,9 +6,12 @@
     <div class="container-fluid">
         <h1>Document : Détail</h1>
         {% if document.id == NULL %}
-            <p>Vous êtes en train de créer un nouveau document</p>
+            <h4>Vous êtes en train de créer un nouveau document</h4>
         {% else %}
-            <p>Vous êtes en train d'accéder au document N° {{ document.id }}</p>
+            <h4>Vous êtes en train de modifier le document N° {{ document.id }}</h4>
+            <p>
+                <a  class='btn btn-sm btn-primary' href="{{ path('document_new') }}">Nouveau document</a>
+            </p>
         {% endif %}
 
         <div class="row">
@@ -40,17 +43,33 @@
 
             {# taille #}
             <div class="form-group row">
-                <label class="col-sm-3">Taille&nbsp;:</label>
-                <div class="col-sm-9">
-                    {{ form_row(formDocument.taille) }}
+                    <label class="col-sm-3">Taille&nbsp;:</label>
+                    <div class="col-sm-9">
+                        {{ form_row(formDocument.taille) }}
+                    </div>
                 </div>
-            </div>
 
+            {# entreprise #}
+            <div class="form-group row">
+                    <label class="col-sm-3">Entreprise&nbsp;:</label>
+                    <div class="col-sm-9">
+                        {{ form_row(formDocument.entreprise) }}
+                    </div>
+                </div>
+
+            {# attachement #}
+            <div class="form-group row">
+                    <label class="col-sm-3">Attachement&nbsp;:</label>
+                    <div class="col-sm-9">
+                        {{ form_row(formDocument.attachedTo) }}
+                    </div>
+                </div>
+        
             {# Actions #}
             {% if document.id == NULL %}
-                <button class="btn tbtn-primary">Créer le document</button>
+                <button class="btn btn-sm btn-primary">Créer le document</button>
             {% else %}
-                <button class="btn tbtn-primary">Modifier le document</button>
+                <button class="btn btn-sm btn-primary">Modifier le document</button>
             {% endif %}
     
             {{ form_end(formDocument) }}
