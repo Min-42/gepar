@@ -12,16 +12,16 @@
     {% if loop.first %}
         <table border='1'>
             <tr>
-                <td>Action</td>
-                <td>Type</td>
-                <td>Document</td>
-                <td>Extension</td>
-                <td>Taille</td>
-                <td>Entreprise</td>
-                <td>Attachement</td>
-                <td>Création</td>
-                <td>Modification</td>
-                <td>Suppression</td>
+                <th>Action</th>
+                <th>Entreprise</th>
+                <th>Attachement</th>
+                <th>Type</th>
+                <th>Document</th>
+                <th>Extension</th>
+                <th>Taille</th>
+                <th>Création</th>
+                <th>Modification</th>
+                <th>Suppression</th>
             </tr>
     {% endif %}
     <tr>
@@ -29,15 +29,23 @@
             <a href="{{ path('document_detail',{'id': document.id}) }}">Editer</a>
             &nbsp;<a href="">Supprimer</a>
         </td>
+        <td>{{ document.entreprise.nom }}</td>
+        <td>{{ document.attachedTo}}</td>
         <td>{{ document.type }}</td>
         <td>{{ document.fichier }}</td>
         <td>{{ document.extension }}</td>
         <td>{{ document.taille }}</td>
-        <td>{{ document.entreprise}}</td>
-        <td>{{ document.attachedTo}}</td>
         <td>le {{ document.createdAt | date('d/m/Y') }} à {{ document.createdAt | date('H:i') }} par {{ document.createdBy }}</td>
-        <td>le {{ document.modifiedAt | date('d/m/Y') }} à {{ document.modifiedAt | date('H:i') }} par {{ document.modifiedBy }}</td>
-        <td>le {{ document.suppressedAt | date('d/m/Y') }} à {{ document.suppressedAt | date('H:i') }} par {{ document.suppressedBy }}</td>
+        {% if document.modifiedAt is null %}
+            <td>&nbsp;</td>
+        {% else %}
+            <td>le {{ document.modifiedAt | date('d/m/Y') }} à {{ document.modifiedAt | date('H:i') }} par {{ document.modifiedBy }}</td>
+        {% endif %}
+        {% if document.deletedAt is null %}
+            <td>&nbsp;</td>
+        {% else %}
+            <td>le {{ document.deletedAt | date('d/m/Y') }} à {{ document.deletedAt | date('H:i') }} par {{ document.deletedBy }}</td>
+        {% endif %}
     </tr>
     {% if loop.last %}
         </table>

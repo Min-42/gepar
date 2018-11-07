@@ -7,9 +7,13 @@
         <h1>Document : Détail</h1>
         {% if document.id == NULL %}
             <h4>Vous êtes en train de créer un nouveau document</h4>
-        {% else %}
+            <p>
+                <a  class='btn btn-sm btn-primary' href="{{ path('document_liste') }}">Liste des documents</a>
+            </p>
+            {% else %}
             <h4>Vous êtes en train de modifier le document N° {{ document.id }}</h4>
             <p>
+                <a  class='btn btn-sm btn-primary' href="{{ path('document_liste') }}">Liste des documents</a>
                 <a  class='btn btn-sm btn-primary' href="{{ path('document_new') }}">Nouveau document</a>
             </p>
         {% endif %}
