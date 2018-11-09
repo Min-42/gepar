@@ -228,6 +228,10 @@ class Document
 
     public function display(): ?string
     {
-        return '<a href="'.$this->fichier.'" target="_blank">'.$this->type.'</a><br />';
+//        return $this->type.'=>'.$this->fichier;
+        return json_encode(array(
+            'type' => $this->type,
+            'fichier' => $this->fichier,
+        ));
     }
 }

@@ -19,79 +19,79 @@
         {% endif %}
 
         <div class="row">
-            {{ form_start(formEntreprise) }}
+            {{ form_start(formDetail) }}
 
             {# CodeSiren #}
-            <div class="form-group row">
+            <div id="divCodeSiren" class="form-group row">
                 <label class="col-sm-3">Code Siren&nbsp;:</label>
                 <div class="col-sm-9">
-                    {{ form_row(formEntreprise.codeSiren) }}
+                    {{ form_row(formDetail.codeSiren) }}
                 </div>
             </div>
 
             {# Nom #}
-            <div class="form-group row">
+            <div id="divNom" class="form-group row">
                 <label class="col-sm-3">Nom&nbsp;:</label>
                 <div class="col-sm-9">
-                    {{ form_row(formEntreprise.nom) }}
+                    {{ form_row(formDetail.nom) }}
                 </div>
             </div>
 
             {# groupe #}
-            <div class="form-group row">
+            <div id="divGroupe" class="form-group row">
                 <label class="col-sm-3">Groupe&nbsp;:</label>
                 <div class="col-sm-9">
-                    {{ form_row(formEntreprise.groupe) }}
+                    {{ form_row(formDetail.groupe) }}
                 </div>
             </div>
 
             {# Documents #}
-            <div class="form-group row">
-                    <label class="col-sm-3">Documents&nbsp;:</label>
-                    <div class="col-sm-9">
-                        {% for document in entreprise.documents %}
-                            {{ document.display() | raw }}
-                        {% endfor %}
-                    </div>
+            <div id="divDocuments">
+                {{ form_row(formDetail.documents) }}
+            </div>
+            <div id="divDocs" class="form-group row">
+                <label class="col-sm-3">Documents&nbsp;:</label>
+                <div id="divDocsListe" class="col-sm-9">
                 </div>
+            </div>
 
             {# Contacts #}
-            <div class="form-group row">
+            <div id="divContacts" class="form-group row">
                     <label class="col-sm-3">Contacts&nbsp;:</label>
                     <div class="col-sm-9">
-                        >>> A DEVELOPPER {{ form_row(formEntreprise.contacts) }}
+                        >>> A DEVELOPPER {{ form_row(formDetail.contacts) }}
                     </div>
                 </div>
 
             {# ConventionCollective #}
-            <div class="form-group row">
+            <div id="divConventionCollective" class="form-group row">
                     <label class="col-sm-3">Convention collective&nbsp;:</label>
                     <div class="col-sm-9">
-                        {{ form_row(formEntreprise.conventionCollective) }}
+                        {{ form_row(formDetail.conventionCollective) }}
                     </div>
                 </div>
 
             {# trancheEffectif #}
-            <div class="form-group row">
+            <div id="divTrancheEffectif" class="form-group row">
                     <label class="col-sm-3">Tranche d'effectifs&nbsp;:</label>
                     <div class="col-sm-9">
-                        {{ form_row(formEntreprise.trancheEffectif) }}
+                        {{ form_row(formDetail.trancheEffectif) }}
                     </div>
                 </div>
 
             {# NbAdherents #}
-            <div class="form-group row">
+            <div id="divNbAdherents" class="form-group row">
                     <label class="col-sm-3">Nombre d'adhérents&nbsp;:</label>
                     <div class="col-sm-9">
-                        {{ form_row(formEntreprise.nbAdherents) }}
+                        {{ form_row(formDetail.nbAdherents) }}
                     </div>
                 </div>
 
             {# Notes #}
-            <div class="form-group row">
+            <div id="divNotes" class="form-group row">
                     <label class="col-sm-3">notes&nbsp;:</label>
                     <div class="col-sm-9">
-                        {{ form_row(formEntreprise.notes) }}
+                        {{ form_row(formDetail.notes) }}
                     </div>
                 </div>
         
@@ -102,7 +102,40 @@
                 <button class="btn btn-sm btn-primary">Modifier l'entreprise'</button>
             {% endif %}
     
-            {{ form_end(formEntreprise) }}
+            {{ form_end(formDetail) }}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function() {
+            gestDocuments();
+
+            $('.ico-suppress').click(function(){
+                if (confirm('Voulez-vous supprimer le document "'+$(this).attr('data-type')+'"')){
+                    var indiceASupprimer = $(this).attr('data-indice');
+                    var docs = $("#divDocsListe").html();
+                    var tabDocuments = docs.split("<br>");
+                    var affichageDocs  = "";
+                    newIndice=0;
+                    tabDocuments.forEach(function(element, index, tabDocuments) {
+                        if (index < indiceASupprimer) {
+                            affichageDocs+=element+"<br>";
+                            newIndice++;
+                        }
+                        if (index > indiceASupprimer && index < tabDocuments.length-1) {
+                            pos1 = element.indexOf("data-indice")+13;
+                            pos2 = element.indexOf("\"", pos1+1);
+                            affichageDocs+=element.substring(0, pos1)+newIndice+element.substring(pos2)
+                            newIndice++;
+                        }
+                    });
+                    affichageDocs+='<br><a class="btn btn-sm btn-primary" href="#" id="ajouterDocument">Ajouter un document</a>';
+
+                    $('#divDocsListe').html(affichageDocs);
+                }
+            });
+    });
+    </script>
 {% endblock %}

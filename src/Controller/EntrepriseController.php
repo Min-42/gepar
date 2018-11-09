@@ -23,10 +23,10 @@ class EntrepriseController extends AbstractController
             $entreprise = new Entreprise();
         }
 
-        $formEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
-        $formEntreprise->handleRequest($request);
+        $formDetail = $this->createForm(EntrepriseType::class, $entreprise);
+        $formDetail->handleRequest($request);
 
-        if ($formEntreprise->isSubmitted() && $formEntreprise->isValid()) {
+        if ($formDetail->isSubmitted() && $formDetail->isValid()) {
             if ($entreprise->getId()) {
                 $entreprise->setModifiedAt(new \DateTime());
                 $entreprise->setModifiedBy("Michel-Modif");
@@ -43,7 +43,7 @@ class EntrepriseController extends AbstractController
         }
         
         return $this->render('entreprise/index.html.twig', [
-            'formEntreprise' => $formEntreprise->createView(),
+            'formDetail' => $formDetail->createView(),
             'entreprise' => $entreprise,
         ]);
     }
