@@ -114,26 +114,27 @@
 
             $('.ico-suppress').click(function(){
                 if (confirm('Voulez-vous supprimer le document "'+$(this).attr('data-type')+'"')){
-                    var indiceASupprimer = $(this).attr('data-indice');
-                    var docs = $("#divDocsListe").html();
-                    var tabDocuments = docs.split("<br>");
-                    var affichageDocs  = "";
-                    newIndice=0;
-                    tabDocuments.forEach(function(element, index, tabDocuments) {
-                        if (index < indiceASupprimer) {
-                            affichageDocs+=element+"<br>";
-                            newIndice++;
-                        }
-                        if (index > indiceASupprimer && index < tabDocuments.length-1) {
-                            pos1 = element.indexOf("data-indice")+13;
-                            pos2 = element.indexOf("\"", pos1+1);
-                            affichageDocs+=element.substring(0, pos1)+newIndice+element.substring(pos2)
-                            newIndice++;
-                        }
-                    });
-                    affichageDocs+='<br><a class="btn btn-sm btn-primary" href="#" id="ajouterDocument">Ajouter un document</a>';
-
-                    $('#divDocsListe').html(affichageDocs);
+                    $(this).parent().remove();
+//                    var indiceASupprimer = $(this).attr('data-indice');
+//                    var docs = $("#divDocsListe").html();
+//                    var tabDocuments = docs.split("<br>");
+//                    var affichageDocs  = "";
+//                    newIndice=0;
+//                    tabDocuments.forEach(function(element, index, tabDocuments) {
+//                        if (index < indiceASupprimer) {
+//                            affichageDocs+=element+"<br>";
+//                            newIndice++;
+//                        }
+//                        if (index > indiceASupprimer && index < tabDocuments.length-1) {
+//                            pos1 = element.indexOf("data-indice")+13;
+//                            pos2 = element.indexOf("\"", pos1+1);
+//                            affichageDocs+=element.substring(0, pos1)+newIndice+element.substring(pos2)
+//                            newIndice++;
+//                        }
+//                    });
+//                    affichageDocs+='<br><a class="btn btn-sm btn-primary" href="#" id="ajouterDocument">Ajouter un document</a>';
+//
+//                    $('#divDocsListe').html(affichageDocs);
                 }
             });
     });
