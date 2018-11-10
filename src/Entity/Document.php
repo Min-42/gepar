@@ -77,96 +77,96 @@ class Document
      */
     private $attachedTo;
 
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getType()
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(string $type)
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getFichier(): ?string
+    public function getFichier()
     {
         return $this->fichier;
     }
 
-    public function setFichier(string $fichier): self
+    public function setFichier(string $fichier)
     {
         $this->fichier = $fichier;
 
         return $this;
     }
 
-    public function getExtension(): ?string
+    public function getExtension()
     {
         return $this->extension;
     }
 
-    public function setExtension(string $extension): self
+    public function setExtension(string $extension)
     {
         $this->extension = $extension;
 
         return $this;
     }
 
-    public function getTaille(): ?string
+    public function getTaille()
     {
         return $this->taille;
     }
 
-    public function setTaille(string $taille): self
+    public function setTaille(string $taille)
     {
         $this->taille = $taille;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt)
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getCreatedBy(): ?string
+    public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
-    public function setCreatedBy(string $createdBy): self
+    public function setCreatedBy(string $createdBy)
     {
         $this->createdBy = $createdBy;
 
         return $this;
     }
 
-    public function getModifiedAt(): ?\DateTimeInterface
+    public function getModifiedAt()
     {
         return $this->modifiedAt;
     }
 
-    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
+    public function setModifiedAt(\DateTimeInterface $modifiedAt)
     {
         $this->modifiedAt = $modifiedAt;
 
         return $this;
     }
 
-    public function getModifiedBy(): ?string
+    public function getModifiedBy()
     {
         return $this->modifiedBy;
     }
@@ -183,52 +183,51 @@ class Document
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(\DateTimeInterface $deletedAt): self
+    public function setDeletedAt(\DateTimeInterface $deletedAt)
     {
         $this->deletedAt = $deletedAt;
 
         return $this;
     }
 
-    public function getDeletedBy(): ?string
+    public function getDeletedBy()
     {
         return $this->deletedBy;
     }
 
-    public function setDeletedBy(?string $deletedBy): self
+    public function setDeletedBy(?string $deletedBy)
     {
         $this->deletedBy = $deletedBy;
 
         return $this;
     }
 
-    public function getEntreprise(): ?Entreprise
+    public function getEntreprise()
     {
         return $this->entreprise;
     }
 
-    public function setEntreprise(?Entreprise $entreprise): self
+    public function setEntreprise(?Entreprise $entreprise)
     {
         $this->entreprise = $entreprise;
 
         return $this;
     }
 
-    public function getAttachedTo(): ?string
+    public function getAttachedTo()
     {
         return $this->attachedTo;
     }
 
-    public function setAttachedTo(string $attachedTo): self
+    public function setAttachedTo(string $attachedTo)
     {
         $this->attachedTo = $attachedTo;
 
         return $this;
     }
 
-    public function display(): ?string
+    public function display()
     {
-//        return $this->type.'=>'.$this->fichier;
         return json_encode(array(
             'type' => $this->type,
             'fichier' => $this->fichier,

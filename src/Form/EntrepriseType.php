@@ -11,7 +11,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
+//use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class EntrepriseType extends AbstractType
 {
@@ -56,16 +58,12 @@ class EntrepriseType extends AbstractType
                 'required' => false,
                 'attr' => ['placeholder' => 'Notes diverses concernant l\'entreprise',
                 ]])
-            ->add('documents', EntityType::class, [
-                'class' => Document::class,
-                'choice_label' => function ($document) {
-                    return $document->display();
-                    },
-                'label' => false, 
-                'required' => false,
-                'attr' => ['placeholder' => 'Documents rattachés à l\'entreprise',
+            ->add('documents', CollectionType::class, [
+                'entry_type' => Document::class,
+                'entry_options' => [
+                    'label' => false,
                 ]])
-        ;
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
