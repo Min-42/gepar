@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Document;
-use App\Form\DocumentType;
+use App\Form\Type\DocumentType;
 use App\Repository\DocumentRepository;
 
 class DocumentController extends AbstractController

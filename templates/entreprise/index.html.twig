@@ -47,6 +47,16 @@
 
             {# Documents #}
             <div id="divDocuments">
+                <ul id="ulDocuments">
+                    {% for document in formDetail.documents %}
+                    <li>{{ form_row(document.type) }} - 
+                        {{ form_row(document.fichier) }} - 
+                        {{ form_row(document.extension) }} - 
+                        {{ form_row(document.taille) }} - 
+                        {{ form_row(document.entreprise) }} - 
+                        {{ form_row(document.attachedTo) }}</li>
+                    {% endfor %}
+                </ul>
                 {{ form_row(formDetail.documents) }}
             </div>
             <div id="divDocs" class="form-group row">

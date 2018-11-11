@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Invitation;
-use App\Form\InvitationType;
+use App\Form\Type\InvitationType;
 use App\Repository\InvitationRepository;
 
 class InvitationController extends AbstractController

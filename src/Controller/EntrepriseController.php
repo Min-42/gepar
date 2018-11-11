@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Entreprise;
-use App\Form\EntrepriseType;
+use App\Form\Type\EntrepriseType;
 use App\Repository\EntrepriseRepository;
 
 class EntrepriseController extends AbstractController

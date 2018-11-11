@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Type;
 
 use App\Entity\Entreprise;
-use App\Entity\Document;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-//use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class EntrepriseType extends AbstractType
 {
@@ -59,7 +58,7 @@ class EntrepriseType extends AbstractType
                 'attr' => ['placeholder' => 'Notes diverses concernant l\'entreprise',
                 ]])
             ->add('documents', CollectionType::class, [
-                'entry_type' => Document::class,
+                'entry_type' => DocumentType::class,
                 'entry_options' => [
                     'label' => false,
                 ]])

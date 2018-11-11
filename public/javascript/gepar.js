@@ -1,4 +1,5 @@
 $(function() {
+//    $('#divDocuments').hide();
     var listeDocs = new Array();
     gestDocuments();
 
@@ -19,7 +20,6 @@ $(function() {
     }
 
     function gestDocuments() {
-        $('#divDocuments').hide();
         listeDocs = initListeDocs();
 
         var affichageDocs  = "<ul>";
