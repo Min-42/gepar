@@ -27,21 +27,7 @@ class EntrepriseController extends AbstractController
         $formDetail->handleRequest($request);
 
         if ($formDetail->isSubmitted() && $formDetail->isValid()) {
-            // Valeurs par défaut
-            if ($entreprise->getId()) {
-                $entreprise->setModifiedAt(new \DateTime());
-                $entreprise->setModifiedBy("Michel-Modif");
-            }
-            else {
-                $entreprise->setCreatedAt(new \DateTime());
-                $entreprise->setCreatedBy("Michel-Creat");
-            }
-            if ($entreprise->getGroupe() === null) $entreprise->setGroupe('');
-            if ($entreprise->getContacts() === null) $entreprise->setContacts('');
-            if ($entreprise->getConventionCollective() === null) $entreprise->setConventionCollective('');
-            if ($entreprise->getTrancheEffectif() === null) $entreprise->setTrancheEffectif('');
-            if ($entreprise->getNbAdherents() === null) $entreprise->setNbAdherents(-1);
-            if ($entreprise->getNotes() === null) $entreprise->setNotes('');
+            $this->setDefault($entreprise);
 
             // Mise à jour de la base de données
             $manager->persist($entreprise);
@@ -66,5 +52,22 @@ class EntrepriseController extends AbstractController
         return $this->render('entreprise/liste.html.twig', [
             'entreprises' => $entreprises,
         ]);
+    }
+
+    private function setDefault(Entreprise $entreprise) {
+        if ($entreprise->getId()) {
+            $entreprise->setModifiedAt(new \DateTime());
+            $entreprise->setModifiedBy("Michel-Modif");
+        }
+        else {
+            $entreprise->setCreatedAt(new \DateTime());
+            $entreprise->setCreatedBy("Michel-Creat");
+        }
+        if ($entreprise->getGroupe() === null) $entreprise->setGroupe('');
+        if ($entreprise->getContacts() === null) $entreprise->setContacts('');
+        if ($entreprise->getConventionCollective() === null) $entreprise->setConventionCollective('');
+        if ($entreprise->getTrancheEffectif() === null) $entreprise->setTrancheEffectif('');
+        if ($entreprise->getNbAdherents() === null) $entreprise->setNbAdherents(-1);
+        if ($entreprise->getNotes() === null) $entreprise->setNotes('');
     }
 }

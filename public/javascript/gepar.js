@@ -1,4 +1,5 @@
 $(function() {
+alert("Ecran = "+nomEcran)
     //---------------------------------------------------------------------------------
     // Pur Symfony 4 : Permettre l'ajout et la suppression de documents
     // voir doc : https://symfony.com/doc/current/form/form_collections.html
@@ -47,6 +48,7 @@ $(function() {
             affichageDocs+='<li><img class="ico-suppress" title="supprimer" id="supprimerDocument"';
             affichageDocs+=" data-indice='"+index+"'";
             affichageDocs+=" data-type='"+typeDoc+"'";
+            affichageDocs+=" data-fichier='"+fichierDoc+"'";
             affichageDocs+=' src="/images/ico-suppress.png">';
             affichageDocs+='<a target="_blank" href="'+fichierDoc+'">'+typeDoc+'</a></li>';
         }
@@ -57,6 +59,8 @@ $(function() {
     $('.ico-suppress').click(function(){
         if (confirm('Voulez-vous supprimer le document "'+$(this).attr('data-type')+'"')){
             $(this).parent().remove();
+            var fichierDoc = $(this).attr('data-type');
+            $("ul.uldocuments input[value='"+fichierDoc+"']").parentsUntil("ul").remove();
         }
     });
 });
