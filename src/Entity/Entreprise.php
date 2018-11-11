@@ -88,7 +88,7 @@ class Entreprise
     private $deletedBy;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="entreprise", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="entreprise", orphanRemoval=true, cascade={"persist"})
      */
     private $documents;
 
@@ -143,7 +143,7 @@ class Entreprise
         return $this->contacts;
     }
 
-    public function setContacts(array $contacts)
+    public function setContacts($contacts)
     {
         $this->contacts = $contacts;
 
@@ -280,6 +280,10 @@ class Entreprise
         if (!$this->documents->contains($document)) {
             $this->documents[] = $document;
             $document->setEntreprise($this);
+            $document->setAttachedTo("Entreprise");
+            $document->setCreatedAt(new \DateTime());
+            $document->setCreatedBy("Michel-Creat");
+            $this->documents->add($document);
         }
 
         return $this;
@@ -289,10 +293,6 @@ class Entreprise
     {
         if ($this->documents->contains($document)) {
             $this->documents->removeElement($document);
-            // set the owning side to null (unless already changed)
-            if ($document->getEntreprise() === $this) {
-                $document->setEntreprise(null);
-            }
         }
 
         return $this;

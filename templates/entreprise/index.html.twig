@@ -47,7 +47,7 @@
 
             {# Documents #}
             <div id="divDocuments">
-                <ul id="ulDocuments">
+                <ul id="ulDocuments" class="uldocuments" data-prototype="{{ form_widget(formDetail.documents.vars.prototype)|e('html_attr') }}">
                     {% for document in formDetail.documents %}
                     <li>{{ form_row(document.type) }} - 
                         {{ form_row(document.fichier) }} - 
@@ -57,7 +57,6 @@
                         {{ form_row(document.attachedTo) }}</li>
                     {% endfor %}
                 </ul>
-                {{ form_row(formDetail.documents) }}
             </div>
             <div id="divDocs" class="form-group row">
                 <label class="col-sm-3">Documents&nbsp;:</label>

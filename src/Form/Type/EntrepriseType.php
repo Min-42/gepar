@@ -59,9 +59,11 @@ class EntrepriseType extends AbstractType
                 ]])
             ->add('documents', CollectionType::class, [
                 'entry_type' => DocumentType::class,
-                'entry_options' => [
-                    'label' => false,
-                ]])
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+                ])
             ;
     }
 

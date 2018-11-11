@@ -47,26 +47,6 @@ class Document
     private $createdBy;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $modifiedAt;
-
-    /**
-     * @ORM\Column(type="string", length=64, nullable=true)
-     */
-    private $modifiedBy;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $deletedAt;
-
-    /**
-     * @ORM\Column(type="string", length=64, nullable=true)
-     */
-    private $deletedBy;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Entreprise", inversedBy="documents")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -154,54 +134,6 @@ class Document
         return $this;
     }
 
-    public function getModifiedAt()
-    {
-        return $this->modifiedAt;
-    }
-
-    public function setModifiedAt(\DateTimeInterface $modifiedAt)
-    {
-        $this->modifiedAt = $modifiedAt;
-
-        return $this;
-    }
-
-    public function getModifiedBy()
-    {
-        return $this->modifiedBy;
-    }
-
-    public function setModifiedBy(?string $modifiedBy): self
-    {
-        $this->modifiedBy = $modifiedBy;
-
-        return $this;
-    }
-
-    public function getDeletedAt(): ?\DateTimeInterface
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt(\DateTimeInterface $deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    public function getDeletedBy()
-    {
-        return $this->deletedBy;
-    }
-
-    public function setDeletedBy(?string $deletedBy)
-    {
-        $this->deletedBy = $deletedBy;
-
-        return $this;
-    }
-
     public function getEntreprise()
     {
         return $this->entreprise;
@@ -228,9 +160,6 @@ class Document
 
     public function display()
     {
-        return json_encode(array(
-            'type' => $this->type,
-            'fichier' => $this->fichier,
-        ));
+        return '<a href="'.$this->fichier.'" target="_blank">'.$this->type.'</a><br>';
     }
 }

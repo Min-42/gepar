@@ -27,6 +27,7 @@ class EntrepriseController extends AbstractController
         $formDetail->handleRequest($request);
 
         if ($formDetail->isSubmitted() && $formDetail->isValid()) {
+            // Valeurs par défaut
             if ($entreprise->getId()) {
                 $entreprise->setModifiedAt(new \DateTime());
                 $entreprise->setModifiedBy("Michel-Modif");
@@ -35,7 +36,14 @@ class EntrepriseController extends AbstractController
                 $entreprise->setCreatedAt(new \DateTime());
                 $entreprise->setCreatedBy("Michel-Creat");
             }
+            if ($entreprise->getGroupe() === null) $entreprise->setGroupe('');
+            if ($entreprise->getContacts() === null) $entreprise->setContacts('');
+            if ($entreprise->getConventionCollective() === null) $entreprise->setConventionCollective('');
+            if ($entreprise->getTrancheEffectif() === null) $entreprise->setTrancheEffectif('');
+            if ($entreprise->getNbAdherents() === null) $entreprise->setNbAdherents(-1);
+            if ($entreprise->getNotes() === null) $entreprise->setNotes('');
 
+            // Mise à jour de la base de données
             $manager->persist($entreprise);
             $manager->flush();
 

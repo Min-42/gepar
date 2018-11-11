@@ -1,41 +1,62 @@
 $(function() {
+    //---------------------------------------------------------------------------------
+    // Pur Symfony 4 : Permettre l'ajout et la suppression de documents
+    // voir doc : https://symfony.com/doc/current/form/form_collections.html
+    var $collectionDocumentHolder;
+    var $addDocumentButton = $('<button type="button" class="add_document_link">Add a document</button>');
+    var $newLinkDocumentLi = $('<li></li>').append($addDocumentButton);
+    $collectionDocumentHolder = $('ul.uldocuments');
+    // Suppression de document
+    $collectionDocumentHolder.find('li').each(function() {
+        addDocumentFormDeleteLink($(this));
+    });
+    // Ajout de document
+    $collectionDocumentHolder.append($newLinkDocumentLi);
+    $collectionDocumentHolder.data('index', $collectionDocumentHolder.find(':input').length);
+    $addDocumentButton.on('click', function(e) {
+        addDocumentForm($collectionDocumentHolder, $newLinkDocumentLi);
+    });
+    function addDocumentForm($collectionHolder, $newLinkDocumentLi) {
+        var prototype = $collectionHolder.data('prototype');
+        var index = $collectionHolder.data('index');
+        var newForm = prototype;
+        newForm = newForm.replace(/__name__label__/g, index);
+        newForm = newForm.replace(/__name__/g, index);
+        $collectionHolder.data('index', index + 1);
+        var $newFormDocumentLi = $('<li></li>').append(newForm);
+        $newLinkDocumentLi.before($newFormDocumentLi);
+    }
+    function addDocumentFormDeleteLink($documentFormLi) {
+        var $removeFormButton = $('<button type="button">Delete this document</button>');
+        $documentFormLi.append($removeFormButton);
+    
+        $removeFormButton.on('click', function(e) {
+            // remove the li for the document form
+            $documentFormLi.remove();
+        });
+    }
+    //---------------------------------------------------------------------------------
+
+    // Remplacer l'affichage de Symfony des documents par l'affichage personalisé
 //    $('#divDocuments').hide();
-    var listeDocs = new Array();
-    gestDocuments();
+    var affichageDocs  = "<ul>";
+    $('ul.uldocuments li').each(function(index, element){
+        var typeDoc = $(element).children('div:first-child').children('input').attr('value');
+        var fichierDoc = $(element).children('div:nth-child(2)').children('input').attr('value');
+        if (typeDoc != undefined) {
+            affichageDocs+='<li><img class="ico-suppress" title="supprimer" id="supprimerDocument"';
+            affichageDocs+=" data-indice='"+index+"'";
+            affichageDocs+=" data-type='"+typeDoc+"'";
+            affichageDocs+=' src="/images/ico-suppress.png">';
+            affichageDocs+='<a target="_blank" href="'+fichierDoc+'">'+typeDoc+'</a></li>';
+        }
+    });
+    affichageDocs+='</ul>';
+    $('#divDocsListe').html(affichageDocs);
 
     $('.ico-suppress').click(function(){
         if (confirm('Voulez-vous supprimer le document "'+$(this).attr('data-type')+'"')){
             $(this).parent().remove();
         }
     });
-
-    function initListeDocs() {
-        i=1;
-        tableau = [];
-        while (typeof($('#divDocuments option:eq('+i+')').html()) != "undefined") {
-            tableau.push($('#divDocuments option:eq('+i+')').html());
-            i++;
-        }
-        return tableau;
-    }
-
-    function gestDocuments() {
-        listeDocs = initListeDocs();
-
-        var affichageDocs  = "<ul>";
-        listeDocs.forEach(function(element, index, listeDocs) {
-            obj = JSON.parse(element);
-            affichageDocs+='<li><img class="ico-suppress" title="supprimer" id="supprimerDocument"';
-            affichageDocs+=" data-indice='"+index+"'";
-            affichageDocs+=" data-type='"+obj.type+"'";
-            affichageDocs+=' src="/images/ico-suppress.png">';
-            affichageDocs+='<a target="_blank" href="'+obj.fichier+'">'+obj.type+'</a></li>';
-        });
-        affichageDocs+='</ul>';
-        affichageDocs+='<a class="btn btn-sm btn-primary" href="#" id="ajouterDocument">Ajouter un document</a>';
-
-        $('#divDocsListe').html(affichageDocs);
-
-        return true;
-    }
 });

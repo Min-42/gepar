@@ -28,11 +28,7 @@ class DocumentController extends AbstractController
         $formDocument->handleRequest($request);
 
         if ($formDocument->isSubmitted() && $formDocument->isValid()) {
-            if ($document->getId()) {
-                $document->setModifiedAt(new \DateTime());
-                $document->setModifiedBy("Michel-Modif");
-            }
-            else {
+            if (!$document->getId()) {
                 $document->setCreatedAt(new \DateTime());
                 $document->setCreatedBy("Michel-Creat");
             }
