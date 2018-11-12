@@ -38,10 +38,12 @@ class DocumentType extends AbstractType
                 'class' => Entreprise::class,
                 'choice_label' => 'nom',
                 'label' => false,
+                'required' => false,
                 'attr' => ['placeholder' => 'Identifiant de l\'entreprise',
                 ]])
             ->add('attachedTo', TextType::class, [
                 'label' => false,
+                'required' => false,
                 'attr' => ['placeholder' => 'Attaché à',
                 ]])
         ;

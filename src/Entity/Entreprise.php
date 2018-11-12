@@ -279,6 +279,8 @@ class Entreprise
     {
         if (!$this->documents->contains($document)) {
             $this->documents[] = $document;
+            if ($document->getExtension() === NULL) $document->setExtension("");
+            if ($document->getTaille() === NULL) $document->setTaille("inconnue");
             $document->setEntreprise($this);
             $document->setAttachedTo("Entreprise");
             $document->setCreatedAt(new \DateTime());

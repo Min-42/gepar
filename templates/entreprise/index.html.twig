@@ -49,11 +49,11 @@
             <div id="divDocuments">
                 <ul id="ulDocuments" class="uldocuments" data-prototype="{{ form_widget(formDetail.documents.vars.prototype)|e('html_attr') }}">
                     {% for document in formDetail.documents %}
-                    <li>{{ form_row(document.type) }} - 
-                        {{ form_row(document.fichier) }} - 
-                        {{ form_row(document.extension) }} - 
-                        {{ form_row(document.taille) }} - 
-                        {{ form_row(document.entreprise) }} - 
+                    <li>{{ form_row(document.type) }}
+                        {{ form_row(document.fichier) }}
+                        {{ form_row(document.extension) }}
+                        {{ form_row(document.taille) }}
+                        {{ form_row(document.entreprise) }}
                         {{ form_row(document.attachedTo) }}</li>
                     {% endfor %}
                 </ul>
@@ -118,6 +118,6 @@
 
 {% block javascripts %}
     <script>
-        var nomEcran = "Entreprise";
+        var nomEcran = "entreprise";
     </script>
 {% endblock %}

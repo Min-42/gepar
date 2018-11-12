@@ -1,10 +1,9 @@
 $(function() {
-alert("Ecran = "+nomEcran)
     //---------------------------------------------------------------------------------
     // Pur Symfony 4 : Permettre l'ajout et la suppression de documents
     // voir doc : https://symfony.com/doc/current/form/form_collections.html
     var $collectionDocumentHolder;
-    var $addDocumentButton = $('<button type="button" class="add_document_link">Add a document</button>');
+    var $addDocumentButton = $('<button type="button" class="add_document_link">Ajouter un document</button>');
     var $newLinkDocumentLi = $('<li></li>').append($addDocumentButton);
     $collectionDocumentHolder = $('ul.uldocuments');
     // Suppression de document
@@ -39,13 +38,13 @@ alert("Ecran = "+nomEcran)
     //---------------------------------------------------------------------------------
 
     // Remplacer l'affichage de Symfony des documents par l'affichage personalisé
-//    $('#divDocuments').hide();
+    $('#divDocuments').hide();
     var affichageDocs  = "<ul>";
     $('ul.uldocuments li').each(function(index, element){
         var typeDoc = $(element).children('div:first-child').children('input').attr('value');
         var fichierDoc = $(element).children('div:nth-child(2)').children('input').attr('value');
         if (typeDoc != undefined) {
-            affichageDocs+='<li><img class="ico-suppress" title="supprimer" id="supprimerDocument"';
+            affichageDocs+='<li><img class="ico-suppress ico-suppress-document" title="supprimer" id="supprimerDocument"';
             affichageDocs+=" data-indice='"+index+"'";
             affichageDocs+=" data-type='"+typeDoc+"'";
             affichageDocs+=" data-fichier='"+fichierDoc+"'";
@@ -54,13 +53,29 @@ alert("Ecran = "+nomEcran)
         }
     });
     affichageDocs+='</ul>';
+    affichageDocs+='<button type="button" class="btn btn-sm btn-primary ico-ajoute-document">Ajouter un document</button>';
     $('#divDocsListe').html(affichageDocs);
 
-    $('.ico-suppress').click(function(){
+    $('.ico-suppress-document').click(function(){
         if (confirm('Voulez-vous supprimer le document "'+$(this).attr('data-type')+'"')){
             $(this).parent().remove();
             var fichierDoc = $(this).attr('data-type');
             $("ul.uldocuments input[value='"+fichierDoc+"']").parentsUntil("ul").remove();
         }
+    });
+
+    $('.ico-ajoute-document').click(function(){
+        var typeDoc = "nouvel ajout";
+        var fichierDoc = "nouveau document";
+        var index = $collectionDocumentHolder.data('index');
+        var newDocument = '<li><div id="'+nomEcran+'_documents'+index+'">';
+        newDocument+='<div><input type="text" id="'+nomEcran+'_documents'+index+'_type"';
+        newDocument+=' name="'+nomEcran+'[documents]['+index+'][type]"';
+        newDocument+=' value="'+typeDoc+'"></div>';
+        newDocument+='<div><input type="text" id="'+nomEcran+'_documents'+index+'_fichier"';
+        newDocument+=' name="'+nomEcran+'[documents]['+index+'][fichier]"';
+        newDocument+=' value="'+fichierDoc+'"></div>';
+        newDocument+='</div></li>';
+        $("ul.uldocuments li:last-child").before(newDocument);
     });
 });
