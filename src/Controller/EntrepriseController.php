@@ -24,17 +24,14 @@ class EntrepriseController extends AbstractController
         if (!$entreprise) {
             $entreprise = new Entreprise();
         }
-
+//        $this->setDefault($entreprise);
+                
         $formDetail = $this->createForm(EntrepriseType::class, $entreprise);
         $formDetail->handleRequest($request);
 
         if ($formDetail->isSubmitted() && $formDetail->isValid()) {
-            $this->setDefault($entreprise);
-
             // Téléchargement des nouveaux documents rattachés à l'entreprise
             foreach ($entreprise->getDocuments() as $index => $document) {
-dump($entreprise);
-dump($document);
                 if (!$document->getId()){
                     /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
                     $file = $document->getFichier();

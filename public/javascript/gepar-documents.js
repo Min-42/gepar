@@ -38,7 +38,6 @@ $(function() {
     //---------------------------------------------------------------------------------
 
     // Remplacer l'affichage de Symfony des documents par l'affichage personalisé
-//    $('#divDocuments').hide();
     var affichageDocs  = "<ul>";
     $('ul.uldocuments li').each(function(index, element){
         var typeDoc = $(element).children('div:first-child').children('input').attr('value');
