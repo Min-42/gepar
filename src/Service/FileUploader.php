@@ -16,15 +16,17 @@ class FileUploader
 
     public function upload(UploadedFile $file)
     {
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $fileExtension = $file->guessExtension();
+        $fileName = md5(uniqid()).'.'.$fileExtension;
+        $fileSize = $file->getSize();
 
         try {
-            $file->move($this->getTargetDir(), $fileName);
+            $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload
         }
 
-        return $fileName;
+        return ['fileName'=>$fileName, 'fileExtension'=>$fileExtension, 'fileSize'=>$fileSize];
     }
 
     public function getTargetDirectory()

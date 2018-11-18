@@ -3,7 +3,7 @@ $(function() {
     var listeContactsJSON = $("#"+nomEcran+"_contacts").val();
     listeContacts = [];
     if (listeContactsJSON != "") listeContacts = JSON.parse(listeContactsJSON);
-alert(listeContacts.length);
+//alert(listeContacts.length);
 
     if (listeContacts.length > 0) {
         var affichageContacts  = "<ul>";

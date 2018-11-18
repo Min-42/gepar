@@ -46,22 +46,21 @@
             </div>
 
             {# Documents #}
-            <div id="divDocuments" class="form-group row d-none">
+            <div id="divDocuments" class="form-group row">
                 <label class="col-sm-3">Documents&nbsp;:</label>
                 <ul id="ulDocuments" class="uldocuments" data-prototype="{{ form_widget(formDetail.documents.vars.prototype)|e('html_attr') }}">
                     {% for document in formDetail.documents %}
-                    <li>{{ form_row(document.type) }}
-                        {{ form_row(document.fichier) }}
+                    <li>{{ form_widget(document.type) }} <a target="_blank" href="/uploads/documents/{{ document.fichier.vars.data.filename }}">Lien vers le document</a> 
                     </li>
                     {% endfor %}
                 </ul>
             </div>
-            <div id="divDocs" class="form-group row">
+{#            <div id="divDocs" class="form-group row">
                 <label class="col-sm-3">Documents&nbsp;:</label>
                 <div id="divDocsListe" class="col-sm-9">
                 </div>
             </div>
-
+#}
             {# Contacts #}
             <div id="divContacts" class="form-group row">
                     <label class="col-sm-3">Contacts&nbsp;:</label>
@@ -106,7 +105,7 @@
             {% if entreprise.id == NULL %}
                 <button class="btn btn-sm btn-primary">Créer l'entreprise</button>
             {% else %}
-                <button class="btn btn-sm btn-primary">Modifier l'entreprise'</button>
+                <button class="btn btn-sm btn-primary">Modifier l'entreprise</button>
             {% endif %}
     
             {{ form_end(formDetail) }}
@@ -115,6 +114,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script type="text/javascript" src="/javascript/gepar-documents.js"></script>
     <script>
         var nomEcran = "entreprise";
     </script>

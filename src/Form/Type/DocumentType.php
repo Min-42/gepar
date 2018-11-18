@@ -23,6 +23,7 @@ class DocumentType extends AbstractType
                 ]])
             ->add('fichier', FileType::class, [
                 'label' => false,
+                'data_class' => null,
                 ])
         ;
     }

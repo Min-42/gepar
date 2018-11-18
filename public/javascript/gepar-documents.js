@@ -27,8 +27,8 @@ $(function() {
         $newLinkDocumentLi.before($newFormDocumentLi);
     }
     function addDocumentFormDeleteLink($documentFormLi) {
-        var $removeFormButton = $('<button type="button">Delete this document</button>');
-        $documentFormLi.append($removeFormButton);
+        var $removeFormButton = $('<button type="button">Supprimer ce document</button>');
+        $documentFormLi.prepend($removeFormButton);
     
         $removeFormButton.on('click', function(e) {
             // remove the li for the document form
@@ -36,45 +36,4 @@ $(function() {
         });
     }
     //---------------------------------------------------------------------------------
-
-    // Remplacer l'affichage de Symfony des documents par l'affichage personalisé
-    var affichageDocs  = "<ul>";
-    $('ul.uldocuments li').each(function(index, element){
-        var typeDoc = $(element).children('div:first-child').children('input').attr('value');
-        var fichierDoc = $(element).children('div:nth-child(2)').children('input').attr('value');
-        if (typeDoc != undefined) {
-            affichageDocs+='<li><img class="ico-suppress ico-suppress-document" title="supprimer" id="supprimerDocument"';
-            affichageDocs+=" data-indice='"+index+"'";
-            affichageDocs+=" data-type='"+typeDoc+"'";
-            affichageDocs+=" data-fichier='"+fichierDoc+"'";
-            affichageDocs+=' src="/images/ico-suppress.png">';
-            affichageDocs+='<a target="_blank" href="'+fichierDoc+'">'+typeDoc+'</a></li>';
-        }
-    });
-    affichageDocs+='</ul>';
-    affichageDocs+='<button type="button" class="btn btn-sm btn-primary ico-ajoute-document">Ajouter un document</button>';
-    $('#divDocsListe').html(affichageDocs);
-
-    $('.ico-suppress-document').click(function(){
-        if (confirm('Voulez-vous supprimer le document "'+$(this).attr('data-type')+'"')){
-            $(this).parent().remove();
-            var fichierDoc = $(this).attr('data-type');
-            $("ul.uldocuments input[value='"+fichierDoc+"']").parentsUntil("ul").remove();
-        }
-    });
-
-    $('.ico-ajoute-document').click(function(){
-        var typeDoc = "nouvel ajout";
-        var fichierDoc = "nouveau document";
-        var index = $collectionDocumentHolder.data('index');
-        var newDocument = '<li><div id="'+nomEcran+'_documents'+index+'">';
-        newDocument+='<div><input type="text" id="'+nomEcran+'_documents'+index+'_type"';
-        newDocument+=' name="'+nomEcran+'[documents]['+index+'][type]"';
-        newDocument+=' value="'+typeDoc+'"></div>';
-        newDocument+='<div><input type="text" id="'+nomEcran+'_documents'+index+'_fichier"';
-        newDocument+=' name="'+nomEcran+'[documents]['+index+'][fichier]"';
-        newDocument+=' value="'+fichierDoc+'"></div>';
-        newDocument+='</div></li>';
-        $("ul.uldocuments li:last-child").before(newDocument);
-    });
 });

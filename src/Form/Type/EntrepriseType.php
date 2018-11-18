@@ -32,12 +32,14 @@ class EntrepriseType extends AbstractType
             ->add('groupe', TextType::class, [
                 'label' => false, 
                 'required' => false,
+                'empty_data' => '',
                 'attr' => [
                     'placeholder' => 'Groupe auquel elle appartient',
                 ]])
             ->add('contacts', TextareaType::class, [
                 'label' => false, 
                 'required' => false,
+                'empty_data' => '',
                 'attr' => [
                     'placeholder' => 'Contacts dans l\'entreprise',
                 ]])
@@ -60,7 +62,7 @@ class EntrepriseType extends AbstractType
                 'required' => false,
                 'empty_data' => -1,
                 'attr' => [
-                    'placeholder' => 'Nombre d\adhérents dans l\'entreprise',
+                    'placeholder' => 'Nombre d\'adhérents',
                 ]])
             ->add('notes', TextareaType::class, [
                 'label' => false, 
@@ -70,11 +72,12 @@ class EntrepriseType extends AbstractType
                     'placeholder' => 'Notes diverses concernant l\'entreprise',
                 ]])
             ->add('documents', CollectionType::class, [
+                'label' => false, 
                 'entry_type' => DocumentType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'by_reference' => false,
-                'allow_delete' => true,
+//                'allow_delete' => true,
                 ])
             ;
     }

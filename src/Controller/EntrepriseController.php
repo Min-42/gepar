@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\File;
 
 use App\Entity\Entreprise;
 use App\Form\Type\EntrepriseType;
@@ -23,23 +24,30 @@ class EntrepriseController extends AbstractController
     {
         if (!$entreprise) {
             $entreprise = new Entreprise();
+            $this->setDefault($entreprise);
         }
-//        $this->setDefault($entreprise);
-                
+        else {
+            foreach ($entreprise->getDocuments() as $document) {
+                $document->setFichier(new File($this->getParameter('documents_directory').'/'.$document->getfichier()));
+            }
+        }
+
         $formDetail = $this->createForm(EntrepriseType::class, $entreprise);
         $formDetail->handleRequest($request);
 
         if ($formDetail->isSubmitted() && $formDetail->isValid()) {
-            // Téléchargement des nouveaux documents rattachés à l'entreprise
-            foreach ($entreprise->getDocuments() as $index => $document) {
+            $documentForms = $formDetail->get('documents');
+            foreach ($documentForms as $index => $documentForm) {
+                $document = $entreprise->getDocuments()[$index];
                 if (!$document->getId()){
                     /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-                    $file = $document->getFichier();
-                    $fileName = $fileUploader->upload($file);
+                    $file = $documentForm->get('fichier')->getData();
+                    
+                    $fileInfo = $fileUploader->upload($file);
 
-                    $document->setFichier($fileName);
-                    $document->setExtension($file->guessExtension());
-                    $document->setTaille($file->getSize());
+                    $document->setFichier($fileInfo['fileName']);
+                    $document->setExtension($fileInfo['fileExtension']);
+                    $document->setTaille($fileInfo['fileSize']);
                 }
             }
 

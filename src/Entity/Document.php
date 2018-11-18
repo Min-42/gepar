@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DocumentRepository")
@@ -67,7 +68,7 @@ class Document
         return $this->type;
     }
 
-    public function setType(string $type)
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -79,7 +80,7 @@ class Document
         return $this->fichier;
     }
 
-    public function setFichier(string $fichier)
+    public function setFichier($fichier)
     {
         $this->fichier = $fichier;
 
@@ -91,7 +92,7 @@ class Document
         return $this->extension;
     }
 
-    public function setExtension(string $extension)
+    public function setExtension($extension)
     {
         $this->extension = $extension;
 
@@ -103,7 +104,7 @@ class Document
         return $this->taille;
     }
 
-    public function setTaille(string $taille)
+    public function setTaille($taille)
     {
         $this->taille = $taille;
 
@@ -115,7 +116,7 @@ class Document
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt)
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -127,7 +128,7 @@ class Document
         return $this->createdBy;
     }
 
-    public function setCreatedBy(string $createdBy)
+    public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
 
@@ -139,7 +140,7 @@ class Document
         return $this->entreprise;
     }
 
-    public function setEntreprise(?Entreprise $entreprise)
+    public function setEntreprise($entreprise)
     {
         $this->entreprise = $entreprise;
 
@@ -151,7 +152,7 @@ class Document
         return $this->attachedTo;
     }
 
-    public function setAttachedTo(string $attachedTo)
+    public function setAttachedTo($attachedTo)
     {
         $this->attachedTo = $attachedTo;
 
@@ -160,6 +161,6 @@ class Document
 
     public function display()
     {
-        return '<a href="'.$this->fichier.'" target="_blank">'.$this->type.'</a><br>';
+        return '<a href="/uploads/documents/'.$this->fichier.'" target="_blank">'.$this->type.'</a><br>';
     }
 }
